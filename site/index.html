@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git Legends</title>
+  <meta name="description" content="Les cartes légendaires de notre équipe de développement.">
+  <!-- Chemins RELATIFS uniquement : le site est servi depuis un sous-dossier (/G4/). -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="hero__badge">
+      <span id="class-name">SRC?</span>
+      <span aria-hidden="true">·</span>
+      <span id="group-name">G?</span>
+    </p>
+    <h1 class="hero__title" id="team-name">Git Legends</h1>
+    <p class="hero__motto" id="team-motto"></p>
+
+    <dl class="hero__stats">
+      <div class="stat">
+        <dt>Puissance d'équipe</dt>
+        <dd id="team-power">0</dd>
+      </div>
+      <div class="stat">
+        <dt>Rang</dt>
+        <dd id="team-rank">—</dd>
+      </div>
+      <div class="stat">
+        <dt>Légendes</dt>
+        <dd id="team-size">0</dd>
+      </div>
+    </dl>
+  </header>
+
+  <main class="main">
+    <p class="hint">Cliquez (ou appuyez) sur une carte pour la retourner.</p>
+    <section class="cards" id="cards" aria-label="Les membres de l'équipe"></section>
+  </main>
+
+  <footer class="footer">
+    <p id="build-info">Version locale, pas encore déployée.</p>
+    <p class="footer__small">Git Legends : même code pour tous les groupes, cartes uniques pour chaque équipe.</p>
+  </footer>
+
+  <!-- Ordre important : la configuration, puis les données, puis la logique. -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
