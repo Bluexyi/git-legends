@@ -1,11 +1,5 @@
-// =====================================================================
-//  Affichage de la page
-// ---------------------------------------------------------------------
-//  Lit la configuration (config.js), génère l'équipe (generator.js)
-//  et construit les cartes dans la page.
-//  Les noms sont toujours insérés avec textContent (jamais innerHTML) :
-//  un nom saisi dans une variable ne peut donc pas injecter de code.
-// =====================================================================
+// Construit la page à partir de config.js et data.js.
+// Les noms sont insérés avec textContent et jamais avec innerHTML.
 
 (function () {
   "use strict";
@@ -20,7 +14,7 @@
 
   const team = window.GitLegends.generateTeam(className, groupName, memberNames, data);
 
-  // --- Petit utilitaire pour créer un élément HTML -------------------
+  // crée un élément avec sa classe et son texte
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -28,12 +22,12 @@
     return node;
   }
 
-  // Typographie française : espaces insécables dans les guillemets « ».
+  // espaces insécables dans les guillemets
   function typography(text) {
     return String(text).replace(/« /g, "«\u00A0").replace(/ »/g, "\u00A0»");
   }
 
-  // --- Le monstre en pixel art, dessiné en SVG ------------------------
+  // avatar pixel art en SVG
   function buildSprite(member) {
     const ns = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(ns, "svg");
@@ -60,7 +54,7 @@
     return svg;
   }
 
-  // --- Une carte complète (recto + verso) -----------------------------
+  // une carte, recto et verso
   function buildCard(member, index) {
     const card = el("article", "card card--" + member.rarity.id);
     card.style.setProperty("--hue", member.hue);
@@ -72,7 +66,7 @@
 
     const inner = el("div", "card__inner");
 
-    // Recto
+    // recto
     const front = el("div", "card__face card__front");
     const top = el("div", "card__top");
     top.append(el("span", "card__rarity", member.rarity.label), el("span", "card__power", member.power));
@@ -88,7 +82,7 @@
     });
     front.append(top, avatar, el("h2", "card__name", member.name), el("p", "card__role", member.role.title), stats);
 
-    // Verso
+    // verso
     const back = el("div", "card__face card__back");
     back.append(
       el("p", "card__label", "Pouvoir spécial"),
@@ -97,13 +91,13 @@
       el("p", "card__text", member.quirk),
       el("p", "card__label", "Objet fétiche"),
       el("p", "card__text", member.item),
-      el("p", "card__id", "Carte n° " + member.id + " · " + member.rarity.label)
+      el("p", "card__id", "Carte n° " + member.id + " - " + member.rarity.label)
     );
 
     inner.append(front, back);
     card.append(inner);
 
-    // Retourner la carte (clic, tactile ou clavier)
+    // retournement au clic ou au clavier
     function flip() {
       const flipped = card.classList.toggle("is-flipped");
       card.setAttribute("aria-pressed", String(flipped));
@@ -116,7 +110,7 @@
       }
     });
 
-    // Effet holographique qui suit la souris
+    // reflet qui suit la souris
     card.addEventListener("pointermove", (event) => {
       const box = card.getBoundingClientRect();
       const x = (event.clientX - box.left) / box.width;
@@ -134,8 +128,8 @@
     return card;
   }
 
-  // --- Remplissage de la page -----------------------------------------
-  document.title = team.name + " · " + className + " " + groupName + " · Git Legends";
+  // remplissage de la page
+  document.title = team.name + " - " + className + " " + groupName + " - Git Legends";
   document.getElementById("class-name").textContent = className;
   document.getElementById("group-name").textContent = groupName;
   document.getElementById("team-name").textContent = team.name;
@@ -151,7 +145,7 @@
     team.members.forEach((member, index) => container.append(buildCard(member, index)));
   }
 
-  // --- Informations de déploiement (remplies par le pipeline) ----------
+  // infos de déploiement, ajoutées par le workflow
   const build = config.build;
   if (build && build.commit) {
     const date = new Date(build.date);
@@ -163,6 +157,6 @@
       parts.push(date.toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Paris" }));
     }
     if (build.actor) parts.push("lancé par " + build.actor);
-    document.getElementById("build-info").textContent = parts.join(" · ");
+    document.getElementById("build-info").textContent = parts.join(" | ");
   }
 })();

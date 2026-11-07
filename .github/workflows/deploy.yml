@@ -1,44 +1,26 @@
-# =====================================================================
-#  Déploiement automatique du site de l'équipe sur Azure
-# ---------------------------------------------------------------------
-#  À chaque push sur main :
-#    1. on récupère le code,
-#    2. on vérifie les variables du dépôt,
-#    3. on personnalise le site avec ces variables,
-#    4. on envoie les fichiers dans le dossier du groupe sur Azure.
-#
-#  Variables du dépôt (Settings > Secrets and variables > Actions > Variables) :
-#    CLASS_NAME    ex. SRC1
-#    GROUP_NAME    ex. G2
-#    TEAM_MEMBERS  ex. Jean Dupont, Marie Martin, Paul Durand
-#
-#  Secret du dépôt (onglet Secrets) :
-#    AZURE_STORAGE_SAS_TOKEN   fourni par l'enseignant, propre à votre groupe
-# =====================================================================
+# Déploie le site du groupe sur Azure à chaque push sur main.
 
 name: Déploiement du site
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: # permet aussi de relancer le déploiement à la main (onglet Actions)
+  workflow_dispatch: # permet aussi de relancer le déploiement à la main
 
-# Permissions minimales : le pipeline a seulement besoin de lire le code.
+# Le workflow a seulement besoin de lire le code.
 permissions:
   contents: read
 
-# Un seul déploiement à la fois : si deux push arrivent coup sur coup,
-# le plus récent attend la fin du précédent.
+# Pas deux déploiements en même temps.
 concurrency:
   group: deploiement
 
 env:
-  # Préfixe des comptes de stockage de l'enseignant : NE PAS MODIFIER.
+  # Préfixe des comptes de stockage, ne pas modifier
   STORAGE_PREFIX: stesgitpgit
-  # Les trois variables du dépôt, disponibles pour toutes les étapes.
-  CLASS_NAME: ${{ vars.CLASS_NAME }}
-  GROUP_NAME: ${{ vars.GROUP_NAME }}
-  TEAM_MEMBERS: ${{ vars.TEAM_MEMBERS }}
+  CLASS_NAME: "TODO"
+  GROUP_NAME: "TODO"
+  TEAM_MEMBERS: "TODO"
 
 jobs:
   deploy:
@@ -66,7 +48,7 @@ jobs:
             echo "::error::TEAM_MEMBERS est vide : indiquez les membres séparés par des virgules."
             erreur=1
           fi
-          # On teste seulement que le secret existe, sans jamais l'afficher.
+          # On vérifie juste que le jeton est présent, sans l'afficher
           if [[ -z "$SAS_TOKEN" ]]; then
             echo "::error::Le secret AZURE_STORAGE_SAS_TOKEN n'est pas configuré."
             erreur=1
@@ -75,11 +57,10 @@ jobs:
 
       - name: Personnaliser le site
         run: |
-          # On travaille sur une copie du site, dans le dossier dist/.
           rm -rf dist
           cp -r site dist
 
-          # jq fabrique un JSON propre (guillemets et accents gérés correctement).
+          # jq gère l'échappement des guillemets et des accents
           jq -n \
             --arg className "$CLASS_NAME" \
             --arg groupName "$GROUP_NAME" \
@@ -95,7 +76,6 @@ jobs:
               build: { commit: $commit, run: $run, actor: $actor, date: $date }
             }' > dist/team.json
 
-          # Le site lit sa configuration dans js/config.js.
           echo "window.TEAM_CONFIG = $(cat dist/team.json);" > dist/js/config.js
 
           echo "Configuration générée :"
@@ -103,17 +83,14 @@ jobs:
 
       - name: Déployer sur Azure
         env:
-          # L'outil az lit ces deux variables pour s'authentifier.
-          # GitHub masque automatiquement la valeur du secret dans les logs.
+          # az lit directement AZURE_STORAGE_ACCOUNT et AZURE_STORAGE_SAS_TOKEN
           AZURE_STORAGE_SAS_TOKEN: ${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
         run: |
-          # Compte de la classe : préfixe + classe en minuscules (ex. stesgitpgitsrc2).
+          # ex. stesgitpgitsrc2
           export AZURE_STORAGE_ACCOUNT="${STORAGE_PREFIX}${CLASS_NAME,,}"
 
-          # Envoi de dist/ dans le dossier du groupe du conteneur $web.
-          #   --overwrite        : remplace les fichiers du déploiement précédent
-          #   no-cache           : le navigateur vérifie toujours la dernière version
-          # Le jeton ne donne accès QU'AU dossier du groupe : impossible d'écrire ailleurs.
+          # --overwrite : remplace la version précédente
+          # no-cache    : évite que le navigateur garde une ancienne version
           az storage blob upload-batch \
             --destination '$web' \
             --destination-path "$GROUP_NAME" \
@@ -123,5 +100,5 @@ jobs:
             --only-show-errors \
             --output none
 
-          echo "### ✅ Site déployé" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Site déployé" >> "$GITHUB_STEP_SUMMARY"
           echo "Classe **$CLASS_NAME**, groupe **$GROUP_NAME** : ouvrez l'URL de votre fiche, qui se termine par \`/$GROUP_NAME/\`." >> "$GITHUB_STEP_SUMMARY"

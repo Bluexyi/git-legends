@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Git Legends</title>
   <meta name="description" content="Les cartes légendaires de notre équipe de développement.">
-  <!-- Chemins RELATIFS uniquement : le site est servi depuis un sous-dossier (/G4/). -->
+  <!-- chemins relatifs : le site est servi depuis un sous-dossier (/G4/) -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -13,7 +13,7 @@
   <header class="hero">
     <p class="hero__badge">
       <span id="class-name">SRC?</span>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">/</span>
       <span id="group-name">G?</span>
     </p>
     <h1 class="hero__title" id="team-name">Git Legends</h1>
@@ -26,7 +26,7 @@
       </div>
       <div class="stat">
         <dt>Rang</dt>
-        <dd id="team-rank">—</dd>
+        <dd id="team-rank">-</dd>
       </div>
       <div class="stat">
         <dt>Légendes</dt>
@@ -45,7 +45,6 @@
     <p class="footer__small">Git Legends : même code pour tous les groupes, cartes uniques pour chaque équipe.</p>
   </footer>
 
-  <!-- Ordre important : la configuration, puis les données, puis la logique. -->
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/generator.js"></script>

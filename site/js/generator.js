@@ -1,16 +1,10 @@
-// =====================================================================
-//  Générateur de cartes Git Legends
-// ---------------------------------------------------------------------
-//  Tout est DÉTERMINISTE : un même prénom donne toujours la même carte,
-//  sur n'importe quel ordinateur. Aucune API externe, aucun hasard réel :
-//  on calcule un nombre (« hash ») à partir du texte, puis on s'en sert
-//  comme graine d'un petit générateur pseudo-aléatoire.
-// =====================================================================
+// Génération des cartes. Même nom = même carte : le nom est haché
+// puis sert de graine à un générateur pseudo-aléatoire.
 
 (function () {
   "use strict";
 
-  // Transforme un texte en un nombre (algorithme cyrb53, domaine public).
+  // hash cyrb53 (domaine public)
   function hashString(text) {
     let h1 = 0xdeadbeef;
     let h2 = 0x41c6ce57;
@@ -24,8 +18,7 @@
     return 4294967296 * (2097151 & h2) + (h1 >>> 0);
   }
 
-  // Générateur pseudo-aléatoire (mulberry32) : renvoie une fonction qui
-  // produit des nombres entre 0 et 1, toujours la même suite pour une graine.
+  // mulberry32 : nombres entre 0 et 1, même suite pour une même graine
   function createRandom(seed) {
     let state = seed >>> 0;
     return function () {
@@ -51,13 +44,12 @@
     return list[list.length - 1];
   }
 
-  // « Jean  DUPONT » et « jean dupont » donnent la même carte.
+  // ignore la casse et les espaces en trop
   function normalizeName(name) {
     return name.trim().replace(/\s+/g, " ").toLowerCase();
   }
 
-  // Crée un petit monstre en pixel art de 8 x 8 cases, symétrique.
-  // Valeurs : 0 = vide, 1 = corps, 2 = détail, 3 = œil.
+  // sprite 8x8 symétrique : 0 vide, 1 corps, 2 détail, 3 oeil
   function generateSprite(random) {
     const size = 8;
     const grid = [];
@@ -66,9 +58,9 @@
       for (let x = 0; x < size / 2; x++) {
         const r = random();
         let value = r < 0.5 ? 1 : r < 0.62 ? 2 : 0;
-        if (x === 3 && y >= 1 && y <= 6) value = 1; // un corps bien plein au centre
+        if (x === 3 && y >= 1 && y <= 6) value = 1; // colonne centrale pleine
         row[x] = value;
-        row[size - 1 - x] = value; // effet miroir
+        row[size - 1 - x] = value; // symétrie
       }
       grid.push(row);
     }
@@ -125,7 +117,6 @@
     };
   }
 
-  // On expose les fonctions utiles au reste du site.
   window.GitLegends = {
     hashString: hashString,
     generateTeam: generateTeam

@@ -1,80 +1,68 @@
-// =====================================================================
-//  Données du jeu Git Legends
-// ---------------------------------------------------------------------
-//  C'est LE fichier à enrichir pendant le TP : ajoutez vos propres rôles,
-//  manies, objets fétiches, devises…
-//
-//  Chaque ajout change les cartes générées : un bon moyen de voir l'effet
-//  de chaque commit une fois déployé !
-//
-//  Règle d'or : une virgule après chaque élément, sauf le dernier.
-// =====================================================================
-
 window.GAME_DATA = {
 
-  // Les rôles fictifs attribués aux membres de l'équipe.
+  // rôles des membres
   roles: [
-    { title: "Mage du Rebase",            power: "Réécrit l'historique si proprement que personne ne remarque rien." },
-    { title: "Paladin du Merge",          power: "Résout n'importe quel conflit avec calme et un grand café." },
-    { title: "Druide des Branches",       power: "Fait pousser une branche par fonctionnalité, jamais deux fois la même." },
-    { title: "Barde du Commit",           power: "Écrit des messages de commit si clairs qu'on les lit pour le plaisir." },
-    { title: "Ninja du Cherry-pick",      power: "Récupère LE commit qu'il faut, sur n'importe quelle branche." },
-    { title: "Alchimiste du Pipeline",    power: "Transforme un push en site déployé en moins de deux minutes." },
-    { title: "Gardien du .gitignore",     power: "Aucun node_modules ne passera. Jamais." },
-    { title: "Archiviste du git log",     power: "Retrouve qui a écrit cette ligne, et surtout pourquoi." },
-    { title: "Chasseur de Bugs",          power: "Pratique git bisect comme un sport de compétition." },
-    { title: "Sentinelle de la Revue",    power: "Repère la faute de frappe à la ligne 482 d'une pull request." },
-    { title: "Oracle du Stash",           power: "Met son travail de côté et le retrouve intact trois jours plus tard." },
-    { title: "Architecte du README",      power: "Rédige une documentation que les gens lisent vraiment." },
-    { title: "Dompteur de HEAD détachée", power: "Ne panique pas en lisant « detached HEAD ». Sourit, même." },
-    { title: "Templier du Tag",           power: "Marque chaque version comme on grave une stèle." },
-    { title: "Spectre du Revert",         power: "Annule l'erreur d'hier sans effacer l'histoire." },
-    { title: "Forgeron des Secrets",      power: "Ne commite jamais un mot de passe. Même pas « pour tester »." },
-    { title: "Shaman du Blame",           power: "Invoque git blame… et découvre souvent que c'était lui-même." },
-    { title: "Pilote du Fast-forward",    power: "Fusionne en ligne droite, sans le moindre commit de merge." }
+    { title: "Mage du Terraform",         power: "Détruit et recrée toute une infra sans perdre un seul octet." },
+    { title: "Paladin du Pare-feu",       power: "Ferme tous les ports. Ouvre le 443 après trois réunions." },
+    { title: "Druide du Subnet",          power: "Découpe un /16 en sous-réseaux de tête, sans calculatrice." },
+    { title: "Gardien du Root",           power: "Ne se connecte jamais en root. Sauf en cas d'incendie." },
+    { title: "Ninja du SSH",              power: "Rebondit sur trois bastions sans taper un seul mot de passe." },
+    { title: "Alchimiste du Pipeline",    power: "Transforme un push en déploiement en moins de deux minutes." },
+    { title: "Chamane du DNS",            power: "Sait que c'est toujours le DNS. Même quand ce n'est pas le DNS." },
+    { title: "Archiviste des Logs",       power: "Retrouve l'erreur dans 4 Go de journaux avec un seul grep." },
+    { title: "Chasseur de Latence",       power: "Gagne 3 ms sur un ping et en parle pendant une semaine." },
+    { title: "Sentinelle du Monitoring",  power: "Reçoit l'alerte avant que le serveur ne tombe." },
+    { title: "Oracle des Backups",        power: "A testé la restauration. Pas seulement la sauvegarde." },
+    { title: "Pilote du Kubernetes",      power: "Redémarre un pod sans réveiller tout le cluster." },
+    { title: "Dompteur de VLAN",          power: "Isole un réseau entier avec deux lignes de configuration." },
+    { title: "Templier de l'Astreinte",   power: "Répond à 3 h du matin, et de bonne humeur." },
+    { title: "Spectre du Rollback",       power: "Revient à la version d'hier avant que le client ne remarque." },
+    { title: "Forgeron des Certificats",  power: "Renouvelle les certificats avant leur expiration. Toujours." },
+    { title: "Maître du Load Balancer",   power: "Répartit la charge si bien que personne ne la sent." },
+    { title: "Sorcier du Shell",          power: "Écrit un script bash de 200 lignes qui marche du premier coup." }
   ],
 
-  // Une petite manie, affichée au dos de la carte.
+  // manies (dos de la carte)
   quirks: [
-    "Nomme ses branches d'après ses plats préférés.",
-    "Fait un commit toutes les quatre minutes, chrono en main.",
+    "Nomme ses serveurs d'après des planètes.",
+    "Tape ls après chaque cd, par réflexe.",
     "Lit les messages d'erreur en entier. Si, si.",
-    "Tape git status avant même de dire bonjour.",
+    "Lance un ping 8.8.8.8 avant de dire bonjour.",
     "Refuse de travailler sans thème sombre.",
-    "Range ses onglets par ordre alphabétique.",
-    "Parle à son canard en plastique pour déboguer.",
-    "Écrit « fix » dans un commit uniquement en cas d'urgence absolue.",
-    "Connaît par cœur la différence entre merge et rebase. Et l'explique.",
-    "Pousse sur main le vendredi soir. Dangereux.",
-    "A toujours un terminal ouvert, même pendant les repas.",
-    "Commente son code en alexandrins."
+    "A plus de terminaux ouverts que d'onglets.",
+    "Explique ses problèmes réseau à un canard en plastique.",
+    "Ne redémarre jamais un serveur un vendredi.",
+    "Connaît son adresse IP publique par cœur.",
+    "Met des alias partout, même pour ls.",
+    "Vérifie trois fois avant un rm -rf.",
+    "Documente ses scripts. Vraiment."
   ],
 
-  // L'objet fétiche de chaque légende.
+  // objets fétiches
   items: [
-    "Clavier mécanique aux touches qui claquent",
+    "Câble RJ45 serti à la main",
     "Tasse « It works on my machine »",
-    "Canard en plastique certifié debug",
-    "Second écran vertical",
-    "Sweat à capuche à l'effigie d'un octocat",
-    "Carnet rempli de commandes git",
-    "Casque antibruit de compétition",
-    "Plante verte prénommée Commit"
+    "Clé USB bootable de secours",
+    "Second écran vertical rempli de logs",
+    "Raspberry Pi qui héberge tout son réseau",
+    "Carnet rempli d'adresses IP",
+    "Casque antibruit pour la salle serveur",
+    "Câble console bleu de Cisco"
   ],
 
-  // La devise de l'équipe (une seule par équipe).
+  // devises d'équipe
   mottos: [
-    "Un commit par jour éloigne le conflit pour toujours.",
-    "Chez nous, on ne pousse pas sur main sans relecture.",
-    "Petits commits, grandes victoires.",
-    "Notre historique Git est une œuvre d'art.",
-    "Le vendredi, on ne déploie pas. On admire le pipeline.",
-    "Branche, commite, fusionne, recommence.",
-    "Zéro conflit, zéro stress.",
+    "Si ça marche, on n'y touche pas.",
+    "Nos serveurs ne dorment jamais. Nous si.",
+    "Infrastructure as Code, ou rien.",
+    "Le vendredi, on ne déploie pas. On surveille.",
+    "Une sauvegarde non testée n'est pas une sauvegarde.",
+    "Automatiser une fois, dormir pour toujours.",
+    "Zéro downtime, zéro stress.",
     "Le pipeline est vert, tout va bien."
   ],
 
-  // Le nom d'équipe = un animal + un adjectif accordé en genre.
+  // nom d'équipe : animal + adjectif accordé
   teamAnimals: [
     { name: "Pandas",          gender: "m" },
     { name: "Licornes",        gender: "f" },
@@ -90,22 +78,22 @@ window.GAME_DATA = {
     { name: "Baleines",        gender: "f" }
   ],
   teamAdjectives: [
-    { m: "Asynchrones", f: "Asynchrones" },
-    { m: "Fusionnés",   f: "Fusionnées" },
-    { m: "Détachés",    f: "Détachées" },
-    { m: "Compilés",    f: "Compilées" },
-    { m: "Déployés",    f: "Déployées" },
-    { m: "Récursifs",   f: "Récursives" },
-    { m: "Quantiques",  f: "Quantiques" },
-    { m: "Immuables",   f: "Immuables" },
-    { m: "Sans Conflit", f: "Sans Conflit" },
+    { m: "Conteneurisés", f: "Conteneurisées" },
+    { m: "Virtualisés",   f: "Virtualisées" },
+    { m: "Redondants",    f: "Redondantes" },
+    { m: "Chiffrés",      f: "Chiffrées" },
+    { m: "Orchestrés",    f: "Orchestrées" },
+    { m: "Scalables",     f: "Scalables" },
+    { m: "Immuables",     f: "Immuables" },
+    { m: "Haute Dispo",   f: "Haute Dispo" },
+    { m: "Sans Downtime", f: "Sans Downtime" },
     { m: "en Production", f: "en Production" }
   ],
 
-  // Les quatre statistiques de chaque carte.
-  stats: ["Commits", "Merge", "Debug", "Café"],
+  // statistiques
+  stats: ["Uptime", "Réseau", "Scripts", "Café"],
 
-  // Les raretés : plus le poids est élevé, plus la rareté est fréquente.
+  // raretés : plus le poids est grand, plus elle est fréquente
   rarities: [
     { id: "commune",    label: "Commune",    weight: 50, bonus: 0 },
     { id: "rare",       label: "Rare",       weight: 30, bonus: 6 },
@@ -113,12 +101,12 @@ window.GAME_DATA = {
     { id: "legendaire", label: "Légendaire", weight: 5,  bonus: 20 }
   ],
 
-  // Les rangs d'équipe, selon la puissance moyenne par membre.
+  // rangs d'équipe selon la puissance moyenne par membre
   ranks: [
-    { min: 0,   label: "Stagiaires prometteurs" },
-    { min: 170, label: "Développeurs confirmés" },
-    { min: 210, label: "Experts du terminal" },
-    { min: 250, label: "Maîtres du dépôt" },
-    { min: 290, label: "Légendes du Commit" }
+    { min: 0,   label: "Stagiaires du helpdesk" },
+    { min: 170, label: "Admins sys confirmés" },
+    { min: 210, label: "Ingénieurs réseau" },
+    { min: 250, label: "Architectes cloud" },
+    { min: 290, label: "Légendes de l'astreinte" }
   ]
 };

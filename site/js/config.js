@@ -1,13 +1,5 @@
-// =====================================================================
-//  Configuration de l'équipe
-// ---------------------------------------------------------------------
-//  Ce fichier contient des valeurs de DÉMONSTRATION pour tester le site
-//  en local (ouvrez simplement index.html dans votre navigateur).
-//
-//  ⚠️  Inutile de le modifier : lors du déploiement, le pipeline GitHub
-//  Actions le remplace automatiquement à partir des variables du dépôt
-//  CLASS_NAME, GROUP_NAME et TEAM_MEMBERS.
-// =====================================================================
+// Valeurs de démo pour tester en local.
+// Ce fichier est régénéré par le workflow au moment du déploiement.
 window.TEAM_CONFIG = {
   className: "SRC0",
   groupName: "G0",

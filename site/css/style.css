@@ -1,8 +1,3 @@
-/* =====================================================================
-   Git Legends : feuille de style
-   Ambiance « salle d'arcade » : fond nuit, néons, cartes à collectionner.
-   ===================================================================== */
-
 :root {
   color-scheme: dark;
   --bg: #0d0b1e;
@@ -39,7 +34,7 @@ body {
   background-attachment: fixed;
 }
 
-/* Une grille discrète au sol, façon jeu rétro */
+/* grille de fond */
 body::before {
   content: "";
   position: fixed;
@@ -52,7 +47,7 @@ body::before {
   mask-image: linear-gradient(180deg, transparent, #000 70%);
 }
 
-/* ----- En-tête ------------------------------------------------------ */
+/* En-tête */
 
 .hero {
   position: relative;
@@ -130,7 +125,7 @@ body::before {
   line-height: 1.6rem;
 }
 
-/* ----- Grille de cartes --------------------------------------------- */
+/* Grille de cartes */
 
 .main {
   position: relative;
@@ -161,7 +156,7 @@ body::before {
   color: var(--muted);
 }
 
-/* ----- Une carte ---------------------------------------------------- */
+/* Une carte */
 
 .card {
   --rx: 0deg;
@@ -339,7 +334,7 @@ body::before {
   color: var(--muted);
 }
 
-/* ----- Raretés ------------------------------------------------------ */
+/* Raretés */
 
 .card--rare .card__face {
   border-color: var(--neon-2);
@@ -362,7 +357,7 @@ body::before {
   font-weight: 800;
 }
 
-/* Reflet holographique sur les cartes Épique et Légendaire */
+/* reflet sur les cartes épiques et légendaires */
 .card--epique .card__front::after,
 .card--legendaire .card__front::after {
   content: "";
@@ -378,7 +373,7 @@ body::before {
   background-position: center, var(--mx) var(--my);
 }
 
-/* ----- Pied de page ------------------------------------------------- */
+/* Pied de page */
 
 .footer {
   position: relative;
@@ -400,7 +395,7 @@ body::before {
   opacity: 0.7;
 }
 
-/* ----- Animations --------------------------------------------------- */
+/* Animations */
 
 @keyframes deal {
   from {
@@ -429,7 +424,7 @@ body::before {
   }
 }
 
-/* ----- Mobile ------------------------------------------------------- */
+/* Mobile */
 
 @media (max-width: 560px) {
   .hero {
