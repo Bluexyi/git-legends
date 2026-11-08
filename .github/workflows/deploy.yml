@@ -18,9 +18,9 @@ concurrency:
 env:
   # Préfixe des comptes de stockage, ne pas modifier
   STORAGE_PREFIX: stesgitpgit
-  CLASS_NAME: "TODO"
-  GROUP_NAME: "TODO"
-  TEAM_MEMBERS: "TODO"
+  CLASS_NAME: ${{ vars.CLASS_NAME }}
+  GROUP_NAME: ${{ vars.GROUP_NAME }}
+  TEAM_MEMBERS: ${{ vars.TEAM_MEMBERS }}
 
 jobs:
   deploy:
