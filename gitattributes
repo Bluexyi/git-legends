@@ -1,0 +1,34 @@
+# Normalise les fins de ligne : LF dans le dépôt et dans les copies de travail,
+# quel que soit le système (Windows, macOS, Linux).
+* text=auto eol=lf
+
+# Fichiers texte du projet
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.svg   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.txt   text eol=lf
+*.sh    text eol=lf
+
+# Scripts Windows : ils ont besoin de CRLF
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# Fichiers binaires : jamais de conversion ni de diff texte
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
