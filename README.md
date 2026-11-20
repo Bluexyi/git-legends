@@ -1,133 +1,141 @@
 # Git Legends
 
-Chaque membre de votre équipe devient une carte à collectionner : un rôle, un pouvoir spécial, des statistiques et une rareté (Commune, Rare, Épique ou Légendaire). Les cartes sont générées à partir de vos noms, sans API externe : un même nom donne toujours la même carte.
+> **Chaque équipe mérite ses cartes légendaires.**
 
-Votre mission : mettre ce site en ligne en équipe, avec Git et un déploiement entièrement automatisé, puis l'enrichir.
+![Stack](https://img.shields.io/badge/HTML%20%7C%20CSS%20%7C%20JS-vanilla-F05639?style=flat-square)
+![Dépendances](https://img.shields.io/badge/d%C3%A9pendances-0-2DA44E?style=flat-square)
+![Build](https://img.shields.io/badge/build-aucun-5B86E5?style=flat-square)
 
-Le code du site et le pipeline de déploiement sont fournis. Le reste est à vous.
+Git Legends transforme chaque membre d'une équipe en **carte à collectionner** : un avatar en pixel art, une rareté, un rôle d'Ops légendaire, des statistiques… et, au dos, une manie inavouable et un objet fétiche.
 
-## Partie 1 : créer et partager le dépôt
+Donnez-lui une liste de noms, il vous rend une équipe complète, avec son nom, sa devise et son rang.
 
-### Créer le dépôt distant
+---
 
-- Créez sur GitHub un dépôt nommé `git-legends`.
-- Il doit être **public**. Un dépôt privé m'est inaccessible : il sera noté 0/20.
-- Il doit être créé entièrement vide : pas de README, pas de `.gitignore`, pas de licence.
-- Tous les membres de l'équipe doivent pouvoir pousser sur ce dépôt.
+## Fonctionnalités
 
-### Initialiser le projet (une seule personne)
+- **Une carte par membre**, avec un avatar pixel art 8×8 unique
+- **Cartes retournables** au clic ou au clavier (`Entrée` / `Espace`)
+- **Effet holographique** : la carte s'incline et le reflet suit la souris
+- **4 raretés** : Commune, Rare, Épique et la très convoitée **Légendaire**
+- **4 stats** : Uptime, Réseau, Scripts et Café
+- **Un nom d'équipe généré**, comme « Les Ratons Laveurs Conteneurisés » ou « Les Loutres Haute Dispo »
+- **Un rang d'équipe** selon la puissance moyenne, de « Stagiaires du helpdesk » à « Légendes de l'astreinte »
 
-- Téléchargez le livrable `git-legends.zip` sur MyGES et décompressez-le.
-- Initialisez un dépôt Git dans ce dossier.
-- Configurez le dépôt distant à partir des informations de votre dépôt GitHub, puis poussez le code.
-- La branche principale doit s'appeler `main`.
+---
 
-Pensez à la notion de root commit : une seule personne initialise le dépôt en local et pousse le premier commit. Les autres membres clonent ensuite le dépôt, chacun de leur côté.
+## Le principe : un hasard reproductible
 
-Si vous vous authentifiez avec une clé SSH, utilisez bien l'adresse SSH du dépôt et non l'adresse HTTPS.
-
-Au premier push, le pipeline de déploiement se lance et échoue. C'est normal, c'est l'objet de la partie 2.
-
-## Partie 2 : faire fonctionner le pipeline
-
-Le déploiement est décrit dans `.github/workflows/deploy.yml`. Pour fonctionner, le pipeline a besoin de quatre informations :
-
-| Nom | Contenu | Exemple |
-|---|---|---|
-| `CLASS_NAME` | Le nom de votre classe, en majuscules | `SRC2` |
-| `GROUP_NAME` | Le numéro de votre groupe, de `G1` à `G15` | `G4` |
-| `TEAM_MEMBERS` | Les prénoms et noms de tous les membres, séparés par des virgules | `Jean Dupont, Marie Martin, Paul Durand` |
-| `AZURE_STORAGE_SAS_TOKEN` | Le jeton d'accès Azure de votre groupe | voir votre fiche d'accès |
-
-Les valeurs de votre groupe sont sur votre fiche d'accès.
-
-Le pipeline fourni est incomplet : `CLASS_NAME`, `GROUP_NAME` et `TEAM_MEMBERS` sont vides (lignes 21, 22 et 23 de `deploy.yml`). Corrigez-le pour qu'il récupère ces valeurs depuis la configuration de votre dépôt GitHub, et non en les écrivant en dur dans le fichier.
-
-À vous de trouver où déclarer chacune des quatre informations dans GitHub, et comment le workflow y fait appel. Demandez-vous pour chacune si elle est sensible ou non.
-
-Tant qu'il manque quelque chose, le pipeline échoue avec un message d'erreur. Lisez les logs, ils indiquent ce qui ne va pas.
-
-**Ne passez à la partie 3 qu'une fois le site en ligne** à l'URL de votre fiche d'accès, avec vos noms.
-
-## Partie 3 : faire évoluer le site en équipe
-
-À partir de maintenant, chaque modification fusionnée dans `main` est déployée automatiquement. C'est ce que vous devez observer et vérifier.
-
-### Les règles
-
-- Chaque membre travaille sur sa propre branche, nommée `<votre-nom>/<nom-de-branche>`. Exemple : `lenoir/change-color-website`.
-- Chaque membre fait au moins un commit sur le projet.
-- Toute modification arrive dans `main` par une pull request sur GitHub.
-- Après chaque fusion, vérifiez que le pipeline est passé et que votre modification est visible sur le site.
-- Si un déploiement échoue, c'est à l'auteur de la modification de le réparer, par un nouveau commit.
-- Les branches de chacun ne doivent pas être supprimées de GitHub, même après la fusion : elles servent à la correction.
-
-### Que modifier ?
-
-Pas besoin d'être développeur : la plupart des modifications se font en changeant du texte ou une valeur. Quelques idées, de la plus simple à la plus poussée.
-
-**Le contenu du jeu** (`site/js/data.js`) :
-
-- ajouter un rôle avec son pouvoir spécial, une manie, un objet fétiche ou une devise ;
-- renommer les rangs ou changer leurs seuils ;
-- ajouter un animal et un adjectif pour les noms d'équipe ;
-- changer le nom des statistiques.
-
-**L'apparence** (`site/css/style.css`) :
-
-- changer les couleurs néon (`--neon-1`, `--neon-2`, `--neon-3`) ou la couleur de fond (`--bg`), en haut du fichier ;
-- changer la taille du titre ou l'arrondi des cartes (`--radius`).
-
-**Les textes de la page** (`site/index.html`) :
-
-- la phrase d'aide au-dessus des cartes, le texte du pied de page, le titre de l'onglet.
-
-**La documentation** (fichiers Markdown, à la racine du dépôt) :
-
-- une section « Notre équipe » dans ce README, avec le rôle de chacun dans le projet ;
-- un fichier qui explique, avec vos mots, ce que fait le pipeline de déploiement étape par étape ;
-- un fichier de procédure : que faire si le déploiement échoue.
-
-## Ce que vous devez obtenir
-
-- [ ] Le dépôt `git-legends` est public, et son premier commit a été poussé par un seul membre.
-- [ ] Le pipeline récupère ses quatre informations depuis la configuration du dépôt, et aucune n'est écrite en dur.
-- [ ] Le site est en ligne à l'URL de votre fiche d'accès, avec votre classe, votre groupe et tous les membres de l'équipe.
-- [ ] Chaque membre a travaillé sur sa propre branche et a fait au moins un commit.
-- [ ] Toutes les branches ont été fusionnées dans `main` via des pull requests sur GitHub.
-- [ ] Chaque fusion a déclenché un déploiement, et le dernier est réussi.
-- [ ] La modification de chaque membre est visible sur le site en ligne.
-- [ ] Toutes les branches des membres sont toujours présentes sur GitHub.
-- [ ] Aucune information sensible n'apparaît dans le code ni dans l'historique Git.
-
-## Le projet
-
-```text
-.
-├── .github/workflows/deploy.yml   pipeline de déploiement
-└── site/
-    ├── index.html
-    ├── favicon.svg
-    ├── css/style.css              apparence
-    └── js/
-        ├── config.js              valeurs de démo
-        ├── data.js                contenu du jeu : rôles, manies, devises
-        ├── generator.js           génération des cartes à partir des noms
-        └── app.js                 affichage des cartes
+```
+"Grace Hopper" ──hash──▶ graine ──générateur pseudo-aléatoire──▶ rareté, rôle, stats, avatar…
 ```
 
-Le site fonctionne sans serveur : vous pouvez l'ouvrir directement dans un navigateur pour le tester, avec des membres de démo.
+1. Le nom est **normalisé** : la casse et les espaces en trop sont ignorés
+2. Il est **haché** (`cyrb53`) pour obtenir une graine
+3. La graine alimente un **générateur pseudo-aléatoire** (`mulberry32`), qui tire tout le reste
 
-## Règles
+**Même nom = même carte**, sur toutes les machines, à chaque chargement. Le nom d'équipe et la devise dépendent de la classe, du groupe **et** de la liste des membres : ajouter quelqu'un change l'identité de toute l'équipe.
 
-- Ne modifiez pas `STORAGE_PREFIX` dans le workflow.
-- Le jeton d'accès est propre à votre groupe : ne le partagez pas et ne l'écrivez dans aucun fichier.
-- Toutes les équipes partent du même code : comparez vos cartes sur le portail de votre classe.
+---
 
-## Pour aller plus loin
+## Démarrage rapide
 
-- Provoquer un conflit entre deux branches et le résoudre proprement.
-- Marquer la version finale avec une étiquette `v1.0`.
-- Annuler un commit déjà poussé sans réécrire l'historique.
-- Empêcher toute modification directe de `main` : tout doit passer par une relecture.
-- Ajouter une cinquième statistique aux cartes.
+Aucune installation, aucune dépendance, aucun build.
+
+```bash
+# ouvrir directement la page
+open site/index.html          # macOS
+xdg-open site/index.html      # Linux
+
+# ou servir le dossier en local
+python3 -m http.server 8000 --directory site
+# → http://localhost:8000
+```
+
+---
+
+## Configurer son équipe
+
+Tout se passe dans `site/js/config.js` :
+
+```js
+window.TEAM_CONFIG = {
+  className: "SRC0",
+  groupName: "G0",
+  members: [
+    "Ada Lovelace",
+    "Linus Torvalds",
+    "Grace Hopper",
+    "Margaret Hamilton"
+  ],
+  build: null
+};
+```
+
+Rechargez la page : vos légendes apparaissent. 
+
+Le champ `build` est facultatif. S'il est renseigné (`run`, `commit`, `date`, `actor`), le pied de page affiche la version déployée.
+
+---
+
+## Structure
+
+```
+site/
+├── index.html          # la page
+├── favicon.svg
+├── css/
+│   └── style.css       # cartes, animations, reflets
+└── js/
+    ├── config.js       # l'équipe
+    ├── data.js         # rôles, manies, objets, devises, raretés, rangs
+    ├── generator.js    # hash + générateur pseudo-aléatoire
+    └── app.js          # construction de la page
+```
+
+---
+
+## Raretés et rangs
+
+| Rareté | Chance | Bonus de stats |
+|---|---|---|
+| Commune | 50 % | +0 |
+| Rare | 30 % | +6 |
+| Épique | 15 % | +12 |
+| **Légendaire** | **5 %** | **+20** |
+
+| Puissance moyenne par membre | Rang de l'équipe |
+|---|---|
+| 0 et plus | Stagiaires du helpdesk |
+| 170 et plus | Admins sys confirmés |
+| 210 et plus | Ingénieurs réseau |
+| 250 et plus | Architectes cloud |
+| 290 et plus | **Légendes de l'astreinte** |
+
+---
+
+## Ajouter du contenu
+
+Nouveaux rôles, manies, objets fétiches ou devises : tout est dans `site/js/data.js`.
+
+```js
+roles: [
+  { title: "Chamane du DNS", power: "Sait que c'est toujours le DNS. Même quand ce n'est pas le DNS." },
+  // ajoutez le vôtre ici
+]
+```
+
+> Modifier les listes de `data.js` **change le tirage** : les cartes existantes peuvent changer de rôle, de stats ou de rareté.
+
+---
+
+## Sécurité et accessibilité
+
+- Les noms sont insérés avec `textContent`, **jamais** avec `innerHTML` : un nom piégé ne peut pas injecter de code.
+- Les cartes sont utilisables **au clavier** et annoncées aux lecteurs d'écran (`role="button"`, `aria-pressed`).
+- Les animations sont coupées si **« réduire les animations »** est activé dans le système.
+- Tous les chemins sont **relatifs** : le site fonctionne aussi bien à la racine d'un domaine que dans un sous-dossier.
+
+---
+
+<p align="center"><em>En cas de doute, c'est le DNS.</em></p>
